@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ludo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="app">
+
+    <!-- SETUP SCREEN -->
+    <section id="setup" class="screen">
+      <div class="setup-card">
+        <h1>Ludo</h1>
+        <p class="tagline">Race all four of your tokens home before anyone else.</p>
+
+        <div class="setup-group">
+          <h2>Players</h2>
+          <div class="player-rows" id="playerRows"></div>
+        </div>
+
+        <button id="startBtn" class="primary-btn">Start game</button>
+      </div>
+    </section>
+
+    <!-- GAME SCREEN -->
+    <section id="game" class="screen hidden">
+
+      <header id="hud">
+        <div id="turnBanner">
+          <span id="turnDot"></span>
+          <span id="turnText">—</span>
+        </div>
+
+        <div id="diceArea">
+          <div id="diceStage">
+            <div id="diceShadow"></div>
+            <div id="diceCube">
+              <div class="face f1"><i></i></div>
+              <div class="face f2"><i></i><i></i></div>
+              <div class="face f3"><i></i><i></i><i></i></div>
+              <div class="face f4"><i></i><i></i><i></i><i></i></div>
+              <div class="face f5"><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="face f6"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+          </div>
+          <button id="rollBtn" class="primary-btn">Roll dice</button>
+        </div>
+
+        <div id="hudActions">
+          <button id="soundBtn" class="ghost-btn">🔊 Sound</button>
+          <button id="restartBtn" class="ghost-btn">Restart</button>
+        </div>
+      </header>
+
+      <div id="playersStrip"></div>
+
+      <div id="boardWrap">
+        <div id="board"></div>
+        <div id="tokenLayer"></div>
+      </div>
+
+      <div id="log"></div>
+
+    </section>
+
+    <!-- WIN OVERLAY -->
+    <div id="winOverlay" class="hidden">
+      <canvas id="confetti"></canvas>
+      <div class="win-card">
+        <div id="winBadge"></div>
+        <h2 id="winText">—</h2>
+        <button id="playAgainBtn" class="primary-btn">Play again</button>
+      </div>
+    </div>
+
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
