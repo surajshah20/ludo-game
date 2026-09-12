@@ -282,13 +282,31 @@ function isSafeCell(color, pos){
    GAME LOGIC
    ========================================================= */
 
+function isBlocked(playerIdx, pos){
+  // blocks only exist on the shared common path — home stretches are private to one color
+  if (pos < 0 || pos > COMMON_STEPS - 1) return false;
+  const mover = state.players[playerIdx];
+  const [r, c] = tokenCoord(mover.color, pos);
+  return state.players.some((other, oi) => {
+    if (oi === playerIdx) return false;
+    const count = other.tokens.filter(ot => {
+      if (ot.pos < 0 || ot.pos > COMMON_STEPS - 1) return false;
+      const oc = tokenCoord(other.color, ot.pos);
+      return oc && oc[0] === r && oc[1] === c;
+    }).length;
+    return count >= 2; // two-or-more of the same opposing color = an impassable block
+  });
+}
+
 function computeMovable(player, dice){
   const out = [];
+  const pi = state.players.indexOf(player);
   player.tokens.forEach((t, i) => {
     if (t.pos === -1){
-      if (dice === 6) out.push(i);
+      if (dice === 6 && !isBlocked(pi, 0)) out.push(i);
     } else if (t.pos < FINISH_POS){
-      if (t.pos + dice <= FINISH_POS) out.push(i);
+      const newPos = t.pos + dice;
+      if (newPos <= FINISH_POS && !isBlocked(pi, newPos)) out.push(i);
     }
   });
   return out;
